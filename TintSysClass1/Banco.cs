@@ -15,7 +15,7 @@ namespace TintSysClass1
         {
             strConn = @"server=127.0.0.1;database=ti93sysdb;port=3306;user id=root;password=usbw";
             MySqlCommand cmd = new MySqlCommand();
-            try //tentar abrir
+            try //tentar abrir / Fluxos Alternativos (Esp UC Doc)
             {
                 MySqlConnection cn = new MySqlConnection(strConn);
                 if (cn.State!=System.Data.ConnectionState.Open)
@@ -29,6 +29,13 @@ namespace TintSysClass1
                 throw;
             }
             return cmd;
+        }
+        public static void Fechar(MySqlCommand cmd)
+        {
+            if (cmd.Connection.State==System.Data.ConnectionState.Open)
+            {
+                cmd.Connection.Close();
+            }
         }
     }
 }
