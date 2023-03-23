@@ -114,11 +114,19 @@ namespace TintSysClass1
             bool confirma = false;
             var cmd = Banco.Abrir();
             cmd.CommandText = "delete from niveis where id ="+_id;
-            if (cmd.ExecuteNonQuery() > -1)
+            try
             {
-                cmd.ExecuteScalar();
-                confirma = true;
+                if (cmd.ExecuteNonQuery() > 0)
+                {
+                    confirma = true;
+                }
+
             }
+            catch (Exception e)
+            {
+                
+            }
+
 
             Banco.Fechar(cmd);
             return confirma;
