@@ -98,5 +98,31 @@ namespace TintSysClass1
             return lista;
         }
 
+        public void Atualizar()
+        {
+            var cmd = Banco.Abrir();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "update niveis set nome = @nome, sigla = @sigla where id = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@nome",nome);
+            cmd.Parameters.AddWithValue("@sigla",sigla);
+            cmd.ExecuteNonQuery();
+            Banco.Fechar(cmd);
+        }
+        public bool Excluir(int _id)
+        {
+            bool confirma = false;
+            var cmd = Banco.Abrir();
+            cmd.CommandText = "delete from niveis where id ="+_id;
+            if (cmd.ExecuteNonQuery() > -1)
+            {
+                cmd.ExecuteScalar();
+                confirma = true;
+            }
+
+            Banco.Fechar(cmd);
+            return confirma;
+        }
+
     }
 }
