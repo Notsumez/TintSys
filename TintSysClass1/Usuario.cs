@@ -24,7 +24,11 @@ namespace TintSysClass1
         public Nivel Nivel { get => nivel; set => nivel = value; }
         public bool Ativo { get => ativo; set => ativo = value; }
 
-        public Usuario() { }
+        public Usuario() 
+        {
+            ativo = false;
+            nivel = Nivel.ObterPorId(2);
+        }
         
         public Usuario(int id, string nome, string email, string senha, Nivel nivel, bool ativo)
         {
@@ -56,7 +60,20 @@ namespace TintSysClass1
         public static Usuario EfetuarLogin(string _email, string _senha)
         {
             Usuario usuario = null;
-            //
+            MySqlCommand cmd = Banco.Abrir(); // var é usado quando você não quer declarar o tipo
+            cmd.CommandText = "select id, nome, nivel from usuarios" +
+                "where email = @email and senha = md5(@senha) and ativo = 1";
+            cmd.Parameters.AddWithValue("@email", _email);
+            cmd.Parameters.AddWithValue("@senha", _senha);
+            var dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                usuario = new Usuario();
+                usuario.Id = dr.GetInt32(0);
+                usuario.Nome = dr.GetString(1);
+                usuario.Email = dr.GetString(2);
+                usuario.Nivel = Nivel.ObterPorId(dr.GetInt32(3));
+            }
             return usuario;
         }
         public void Inserir() 
