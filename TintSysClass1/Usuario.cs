@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
 
 namespace TintSysClass1
 {
@@ -59,8 +60,18 @@ namespace TintSysClass1
             return usuario;
         }
         public void Inserir() 
-        { 
-            //
+        {
+            var cmd = Banco.Abrir();
+            cmd.CommandText = "insert into usuarios (nome, email, senha, nivel_id, ativo) " +
+                "values(@nome, @email, md5(@senha), @nivel, 1";
+            cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = Nome;
+            cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = Email;
+            cmd.Parameters.Add("@senha", MySqlDbType.VarChar).Value = Senha;
+            cmd.Parameters.Add("@nivel", MySqlDbType.Int32).Value = Nivel.Id;
+            cmd.ExecuteNonQuery();
+            cmd.CommandText = "select @@identity";
+            Id = Convert.ToInt32(cmd.ExecuteScalar());
+            Banco.Fechar(cmd);
         }
         public static Usuario ObterPorId(int _id)
         {
