@@ -125,11 +125,18 @@ namespace TintSysClass1
         }
         public void Atualizar()
         {
-               
+            var cmd = Banco.Abrir();
+            cmd.CommandText = "update usuarios set nome = @nome, senha = md5(@senha)," +
+                " nivel_id = @nivel where id = @id";
+            cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = Nome;
+            cmd.Parameters.Add("@senha", MySqlDbType.VarChar).Value = Senha;
+            cmd.Parameters.Add("@nivel", MySqlDbType.Int32).Value = Nivel.Id;
+            cmd.ExecuteNonQuery();
+            Banco.Fechar(cmd);
         }
         public void Arquivar(int _id)
         {
-
+            
         }
         public void Restaurar(int _id)
         {
