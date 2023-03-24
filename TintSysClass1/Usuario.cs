@@ -141,13 +141,19 @@ namespace TintSysClass1
             cmd.ExecuteNonQuery();
             Banco.Fechar(cmd);
         }
-        public static Restaurar(int _id)
+        public static void Restaurar(int _id)
         {
-
+            var cmd = Banco.Abrir();
+            cmd.CommandText = "update usuarios set ativo = 1 where id = " + _id;
+            cmd.ExecuteNonQuery();
+            Banco.Fechar(cmd);
         }
         public void Excluir(int _id)
         {
-
+            var cmd = Banco.Abrir();
+            cmd.CommandText = "delete from usuarios where id = " + _id;
+            cmd.ExecuteNonQuery();
+            Banco.Fechar(cmd);
         }
     }
 }
