@@ -93,6 +93,7 @@ namespace TintSysClass1
             cmd.CommandText = "insert into clientes (nome, cpf, email, datacad, ativo) " +
                 "values(@nome, @cpf, @email, @datacad, 1";
             cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = Nome;
+            cmd.Parameters.Add("@cpf", MySqlDbType.VarChar).Value = Cpf;
             cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = Email;
             cmd.Parameters.Add("@senha", MySqlDbType.DateTime).Value = Datacad;
             cmd.Parameters.Add("@nivel", MySqlDbType.Int32).Value = Ativo;
