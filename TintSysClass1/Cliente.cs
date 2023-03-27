@@ -17,6 +17,7 @@ namespace TintSysClass1
         private string email;
         private DateTime datacad;
         private bool ativo;
+        
 
         // criando as propriedades
         public int Id { get => id; set => id = value; }
@@ -26,7 +27,10 @@ namespace TintSysClass1
         public DateTime Datacad { get => datacad; set => datacad = value; }
         public bool Ativo { get => ativo; set => ativo = value; }
 
+
+
         // criando os métodos construtores
+        public Cliente() { }
         public Cliente(int id, string nome, char cpf, string email, DateTime datacad, bool ativo)
         {
             Id = id;
