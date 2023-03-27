@@ -1,4 +1,5 @@
-﻿using MySqlX.XDevAPI;
+﻿using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,33 +8,33 @@ using System.Threading.Tasks;
 
 namespace TintSysClass1
 {
-    internal class Endereco
+    public class Endereco
     {
         private int id;
-        private char cep;
+        private string cep;
         private string logradouro;
         private string numero;
         private string complemento;
         private string bairro;
         private string cidade;
         private string estado;
-        private char uf;
+        private string uf;
         private string tipo;
         private Cliente cliente;
 
         public int Id { get => id; set => id = value; }
-        public char Cep { get => cep; set => cep = value; }
+        public string Cep { get => cep; set => cep = value; }
         public string Logradouro { get => logradouro; set => logradouro = value; }
         public string Numero { get => numero; set => numero = value; }
         public string Complemento { get => complemento; set => complemento = value; }
         public string Bairro { get => bairro; set => bairro = value; }
         public string Cidade { get => cidade; set => cidade = value; }
         public string Estado { get => estado; set => estado = value; }
-        public char Uf { get => uf; set => uf = value; }
+        public string Uf { get => uf; set => uf = value; }
         public string Tipo { get => tipo; set => tipo = value; }
         public Cliente Cliente { get => cliente; set => cliente = value; }
 
-        public Endereco(int id, char cep, string logradouro, string numero, string complemento, string bairro, string cidade, string estado, char uf, string tipo, Cliente cliente)
+        public Endereco(int id, string cep, string logradouro, string numero, string complemento, string bairro, string cidade, string estado, string uf, string tipo, Cliente cliente)
         {
             this.id = id;
             this.cep = cep;
@@ -48,7 +49,7 @@ namespace TintSysClass1
             this.cliente = cliente;
         }
 
-        public Endereco(char cep, string logradouro, string numero, string complemento, string bairro, string cidade, string estado, char uf, string tipo, Cliente cliente)
+        public Endereco(string cep, string logradouro, string numero, string complemento, string bairro, string cidade, string estado, string uf, string tipo, Cliente cliente)
         {
             this.cep = cep;
             this.logradouro = logradouro;
@@ -77,20 +78,91 @@ namespace TintSysClass1
             {
                 endereco = new Endereco(
                     dr.GetInt32(0),
-                    dr.GetChar(1),
+                    dr.GetString(1),
                     dr.GetString(2),
                     dr.GetString(3),
                     dr.GetString(4),
                     dr.GetString(5),
                     dr.GetString(6),
                     dr.GetString(7),
-                    dr.GetChar(8),
+                    dr.GetString(8),
                     dr.GetString(9),
                     Cliente.ObterPorId(dr.GetInt32(10))
                     );
             }
             Banco.Fechar(cmd);
             return endereco;
+        }
+        /// <summary>
+        /// Inserir o Endereço
+        /// </summary>
+        public void Inserir()
+        {
+            var cmd = Banco.Abrir();
+            cmd.CommandText = "insert into clientes (cep, logradouro, numero, complemento, bairro, cidade, estado, uf, tipo, cliente_id) " +
+                "values(@cep, @logradouro, @numero, @complemento, @bairro, @cidade, @estado, @uf, 1, 1";
+            cmd.Parameters.Add("@cep", MySqlDbType.String).Value = Cep;
+            cmd.Parameters.Add("@logradouro", MySqlDbType.String).Value = Logradouro;
+            cmd.Parameters.Add("@numero", MySqlDbType.String).Value = Numero;
+            cmd.Parameters.Add("@complemento", MySqlDbType.String).Value = Complemento;
+            cmd.Parameters.Add("@bairro", MySqlDbType.String).Value = Bairro;
+            cmd.Parameters.Add("@cidade", MySqlDbType.String).Value = Cidade;
+            cmd.Parameters.Add("@estado", MySqlDbType.String).Value = Estado;
+            cmd.Parameters.Add("@uf", MySqlDbType.String).Value = Uf;
+            cmd.ExecuteNonQuery();
+            cmd.CommandText = "select @@identity";
+            Id = Convert.ToInt32(cmd.ExecuteScalar());
+            Banco.Fechar(cmd);
+        }
+        /// <summary>
+        /// Listar o endereço pelo nome
+        /// </summary>
+        /// <param name="_nome"></param>
+        /// <returns>Retorna o endereço de acordo com o nome inserido</returns>
+        public static List<Endereco> Listar(string cliente_id = "")
+        {
+            List<Endereco> lista = new List<Endereco>();
+            var cmd = Banco.Abrir();
+            cmd.CommandText = "select * from endereco";
+            var dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                lista.Add(new Endereco(
+                    dr.GetInt32(0),
+                    dr.GetString(1),
+                    dr.GetString(2),
+                    dr.GetString(3),
+                    dr.GetString(4),
+                    dr.GetString(5),
+                    dr.GetString(6),
+                    dr.GetString(7),
+                    dr.GetString(8),
+                    dr.GetString(9),
+                    Cliente.ObterPorId(dr.GetInt32(10))
+                    )
+                );
+            }
+            Banco.Fechar(cmd);
+            return lista;
+        }
+        /// <summary>
+        /// Atualizar o endereço
+        /// </summary>
+        public void Atualizar()
+        {
+            var cmd = Banco.Abrir();
+            cmd.CommandText = "update endereco (cep, logradouro, numero, complemento, bairro, cidade, estado, uf) " +
+                "where id = " + Id;
+            cmd.Parameters.Add("@cep", MySqlDbType.String).Value = Cep;
+            cmd.Parameters.Add("@logradouro", MySqlDbType.String).Value = Logradouro;
+            cmd.Parameters.Add("@numero", MySqlDbType.String).Value = Numero;
+            cmd.Parameters.Add("@complemento", MySqlDbType.String).Value = Complemento;
+            cmd.Parameters.Add("@bairro", MySqlDbType.String).Value = Bairro;
+            cmd.Parameters.Add("@cidade", MySqlDbType.String).Value = Cidade;
+            cmd.Parameters.Add("@estado", MySqlDbType.String).Value = Estado;
+            cmd.Parameters.Add("@uf", MySqlDbType.String).Value = Uf;
+            cmd.ExecuteNonQuery();
+            Banco.Fechar(cmd);
         }
 
     }

@@ -13,25 +13,27 @@ namespace TintSysClass1
         // Criando as variáveis
         private int id;
         private string nome;
-        private char cpf;
+        private string cpf;
         private string email;
         private DateTime datacad;
         private bool ativo;
-        
+        private List<Endereco> endereco;
+        private List<Telefone> telefone;
+
 
         // criando as propriedades
         public int Id { get => id; set => id = value; }
         public string Nome { get => nome; set => nome = value; }
-        public char Cpf { get => cpf; set => cpf = value; }
+        public string Cpf { get => cpf; set => cpf = value; }
         public string Email { get => email; set => email = value; }
         public DateTime Datacad { get => datacad; set => datacad = value; }
         public bool Ativo { get => ativo; set => ativo = value; }
-
-
+        public List<Endereco> Endereco { get => endereco; set => endereco = value; }
+        public List<Telefone> Telefone { get => telefone; set => telefone = value; }
 
         // criando os métodos construtores
         public Cliente() { }
-        public Cliente(int id, string nome, char cpf, string email, DateTime datacad, bool ativo)
+        public Cliente(int id, string nome, string cpf, string email, DateTime datacad, bool ativo)
         {
             Id = id;
             Nome = nome;
@@ -40,7 +42,7 @@ namespace TintSysClass1
             Datacad = datacad;
             Ativo = ativo;
         }
-        public Cliente(int id, string nome, char cpf, string email, DateTime datacad)
+        public Cliente(int id, string nome, string cpf, string email, DateTime datacad)
         {
             Id = id;
             Nome = nome;
@@ -49,7 +51,7 @@ namespace TintSysClass1
             Datacad = datacad;
         }
 
-        public Cliente(string nome, char cpf, string email, DateTime datacad, bool ativo)
+        public Cliente(string nome, string cpf, string email, DateTime datacad, bool ativo)
         {
             Nome = nome;
             Cpf = cpf;
@@ -78,7 +80,7 @@ namespace TintSysClass1
                 cliente = new Cliente(
                     dr.GetInt32(0),
                     dr.GetString(1),
-                    dr.GetChar(2),
+                    dr.GetString(2),
                     dr.GetString(3),
                     dr.GetDateTime(4),
                     dr.GetBoolean(5)
@@ -129,7 +131,7 @@ namespace TintSysClass1
                 lista.Add(new Cliente(
                     dr.GetInt32(0),
                     dr.GetString(1),
-                    dr.GetChar(2),
+                    dr.GetString(2),
                     dr.GetString(3),
                     dr.GetDateTime(4),
                     dr.GetBoolean(5)
