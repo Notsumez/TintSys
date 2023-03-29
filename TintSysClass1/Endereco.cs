@@ -151,8 +151,7 @@ namespace TintSysClass1
         public void Atualizar()
         {
             var cmd = Banco.Abrir();
-            cmd.CommandText = "update endereco (cep, logradouro, numero, complemento, bairro, cidade, estado, uf) " +
-                "where id = " + Id;
+            cmd.CommandText = "update endereco (cep, logradouro, numero, complemento, bairro, cidade, estado, uf) where id = " + Id;
             cmd.Parameters.Add("@cep", MySqlDbType.String).Value = Cep;
             cmd.Parameters.Add("@logradouro", MySqlDbType.String).Value = Logradouro;
             cmd.Parameters.Add("@numero", MySqlDbType.String).Value = Numero;

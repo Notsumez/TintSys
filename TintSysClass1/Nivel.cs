@@ -92,7 +92,11 @@ namespace TintSysClass1
             var dr = cmd.ExecuteReader();
             while(dr.Read())
             {
-                lista.Add(new Nivel(dr.GetInt32(0), dr.GetString(1), dr.GetString(2)));
+                lista.Add(new Nivel(
+                    dr.GetInt32(0), 
+                    dr.GetString(1), 
+                    dr.GetString(2))
+                    );
             }
             Banco.Fechar(cmd);
             return lista;
@@ -109,27 +113,25 @@ namespace TintSysClass1
             cmd.ExecuteNonQuery();
             Banco.Fechar(cmd);
         }
-        public bool Excluir(int _id)
+        public int Excluir(int _id)
         {
-            bool confirma = false;
+            int msg = 0;
             var cmd = Banco.Abrir();
-            cmd.CommandText = "delete from niveis where id ="+_id;
+            cmd.CommandText = "delete from niveis where id =" + _id;
             try
             {
                 if (cmd.ExecuteNonQuery() > 0)
                 {
-                    confirma = true;
+                    msg = 1;
                 }
-
             }
             catch (Exception e)
             {
-                
+                if (e.Message.Contains("FOREIGN KEY"))
+                    msg = 2;
             }
-
-
             Banco.Fechar(cmd);
-            return confirma;
+            return msg;
         }
 
     }

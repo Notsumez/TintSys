@@ -1,6 +1,6 @@
 ﻿namespace TintSysDesk
 {
-    partial class Form2
+    partial class FrmPrincipal
     {
         /// <summary>
         /// Required designer variable.
@@ -28,21 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // Form2
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.IsMdiContainer = true;
-            this.Name = "Form2";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Tintsysclass";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.Form2_Load);
-            this.ResumeLayout(false);
-
+            this.Text = "FrmPrincipal";
         }
 
         #endregion
