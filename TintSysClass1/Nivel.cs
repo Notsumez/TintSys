@@ -10,31 +10,23 @@ namespace TintSysClass1
 {
     public class Nivel //Abstração
     {
-        // atributos
-        //private no diagrama UML = (-)
-        //protected no diagrama UML = (#)
-        //public no diagrama UML = (+)
+        //atributos
         private int id;
         private string nome;
         private string sigla;
 
-        //propriedades (encapsulamento) getters and setters
+        // Propriedades (Encapsulamento) getters and setters
         public int Id { get => id; set => id = value; }
         public string Nome { get => nome; set => nome = value; }
         public string Sigla { get => sigla; set => sigla = value; }
 
-        //Métodos de Acesso
-        //public int GetId() { return id; }
-        //public void SetId(int value) { id = value; }
-
-        //métodos construtores 
-        public Nivel() { }  //vazio
+        // Métodos contrutores 
+        public Nivel() { } // vazio
         public Nivel(string _nome, string _sigla)
         {
             Nome = _nome;
             Sigla = _sigla;
         }
-
         public Nivel(int _id, string _nome, string _sigla)
         {
             Id = _id;
@@ -42,26 +34,25 @@ namespace TintSysClass1
             Sigla = _sigla;
         }
 
-
-        //metodos da classe (inserir, alterar, consultar, deletar)/CRUD
-        public void Inserir()
+        // Métodos da Classes (inserir, alterar, consultar,por Id, por nome, etc.... )
+        public void Inserir() //teste ok
         {
             // cria uma variável com conexão de banco aberta
             var cmd = Banco.Abrir();
-            // define o tipo de comando/intrução MySQL a ser processada pelo server banco de dados
+            // define o tipo de instrução MySQL a ser processada pelo serv banco dados 
             cmd.CommandType = CommandType.Text;
-            // define a query sql especificada com parâmetros (exemplo: @nome...)
+            // define a query sql especificada com parametros (@nome...)
             cmd.CommandText = "insert niveis (nome, sigla) values (@nome, @sigla)";
-            // cria o parâmetro e associa ao valor
+            // cria o parametro e associa ao valor
             cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = Nome;
             cmd.Parameters.AddWithValue("@sigla", Sigla);
-            // executa a instrução SQL na conexão aberta
+            // executa a instrução SQL na conexão
             cmd.ExecuteNonQuery();
             // obtendo o id do nível recém inserido
             cmd.CommandText = "select @@identity";
-            // recupera o id na propriedade
+            // recupera o id na Propriedade
             Id = Convert.ToInt32(cmd.ExecuteScalar());
-            // fecha a conexão 
+            // fecha a conexão
             Banco.Fechar(cmd);
         }
         public static Nivel ObterPorId(int _id)
@@ -72,7 +63,7 @@ namespace TintSysClass1
             cmd.Parameters.AddWithValue("@id", _id);
             var dr = cmd.ExecuteReader();
             Nivel nivel = null;
-            while(dr.Read())
+            while (dr.Read())
             {
                 nivel = new Nivel(
                     dr.GetInt32(0),
@@ -88,36 +79,35 @@ namespace TintSysClass1
             List<Nivel> lista = new List<Nivel>();
             var cmd = Banco.Abrir();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "select * from niveis";
+            cmd.CommandText = "select * from niveis order by nome";
             var dr = cmd.ExecuteReader();
-            while(dr.Read())
+            while (dr.Read())
             {
-                lista.Add(new Nivel(
-                    dr.GetInt32(0), 
-                    dr.GetString(1), 
-                    dr.GetString(2))
-                    );
+                lista.Add(new Nivel(dr.GetInt32(0),
+                        dr.GetString(1),
+                        dr.GetString(2)
+                    )
+                );
             }
             Banco.Fechar(cmd);
             return lista;
         }
-
         public void Atualizar()
         {
             var cmd = Banco.Abrir();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "update niveis set nome = @nome, sigla = @sigla where id = @id";
-            cmd.Parameters.AddWithValue("@id", id);
-            cmd.Parameters.AddWithValue("@nome",nome);
-            cmd.Parameters.AddWithValue("@sigla",sigla);
+            cmd.Parameters.AddWithValue("@id", Id);
+            cmd.Parameters.AddWithValue("@nome", Nome);
+            cmd.Parameters.AddWithValue("@sigla", Sigla);
             cmd.ExecuteNonQuery();
             Banco.Fechar(cmd);
         }
-        public int Excluir(int _id)
+        public int Excluir()
         {
             int msg = 0;
             var cmd = Banco.Abrir();
-            cmd.CommandText = "delete from niveis where id =" + _id;
+            cmd.CommandText = "delete from niveis where id =" + id;
             try
             {
                 if (cmd.ExecuteNonQuery() > 0)

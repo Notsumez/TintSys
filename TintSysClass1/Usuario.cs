@@ -25,12 +25,11 @@ namespace TintSysClass1
         public Nivel Nivel { get => nivel; set => nivel = value; }
         public bool Ativo { get => ativo; set => ativo = value; }
 
-        public Usuario() 
+        public Usuario()
         {
             ativo = false;
             nivel = Nivel.ObterPorId(2);
         }
-        
         public Usuario(int id, string nome, string email, string senha, Nivel nivel, bool ativo)
         {
             Id = id;
@@ -40,15 +39,13 @@ namespace TintSysClass1
             Nivel = nivel;
             Ativo = ativo;
         }
-        public Usuario(int id, string nome, string email, string senha, Nivel nivel) 
+        public Usuario(string nome, string email, string senha, Nivel nivel)
         {
-            Id = id;
             Nome = nome;
             Email = email;
             Senha = senha;
             Nivel = nivel;
         }
-
         public Usuario(string nome, string email, string senha, Nivel nivel, bool ativo)
         {
             Nome = nome;
@@ -80,8 +77,8 @@ namespace TintSysClass1
         public void Inserir() 
         {
             var cmd = Banco.Abrir();
-            cmd.CommandText = "insert into usuarios (nome, email, senha, nivel_id, ativo) " +
-                "values(@nome, @email, md5(@senha), @nivel, 1";
+            cmd.CommandText = "insert usuarios (nome, email, senha, nivel_id, ativo) " +
+                "values(@nome, @email, md5(@senha), @nivel, 1) ";
             cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = Nome;
             cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = Email;
             cmd.Parameters.Add("@senha", MySqlDbType.VarChar).Value = Senha;
