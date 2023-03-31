@@ -146,5 +146,35 @@ namespace TintSysDesk
             CarregaGridNiveis();
             CarregaGrid();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Usuario u = Usuario.ObterPorId(Convert.ToInt32(txtId.Text));
+            if (u != null)
+            {
+                txtNome.Text = u.Nome;
+                txtEmail.Text = u.Email;
+                txtSenha.Text = u.Senha;
+            }
+            else
+            {
+                MessageBox.Show("Usuário não cadastrado!");
+                txtSenha.Clear();
+                txtNome.Clear();
+                txtId.Focus();
+                txtId.Clear();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Usuario n = new Usuario(
+                Convert.ToInt32(txtId.Text),
+                txtNome.Text,
+                txtEmail.Text,
+                txtSenha.Text);
+            n.Atualizar();
+            CarregaGrid();
+        }
     }
 }
