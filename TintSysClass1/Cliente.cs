@@ -16,8 +16,6 @@ namespace TintSysClass1
         private string email;
         private DateTime datacad;
         private bool ativo;
-        private List<Endereco> endereco;
-        private List<Telefone> telefone;
 
 
         // criando as propriedades
@@ -27,8 +25,6 @@ namespace TintSysClass1
         public string Email { get => email; set => email = value; }
         public DateTime Datacad { get => datacad; set => datacad = value; }
         public bool Ativo { get => ativo; set => ativo = value; }
-        public List<Endereco> Endereco { get => endereco; set => endereco = value; }
-        public List<Telefone> Telefone { get => telefone; set => telefone = value; }
 
         // criando os métodos construtores
         public Cliente() { }
