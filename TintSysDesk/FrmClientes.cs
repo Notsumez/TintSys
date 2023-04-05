@@ -47,12 +47,12 @@ namespace TintSysDesk
         private void button1_Click(object sender, EventArgs e)
         {
             Cliente cliente = new Cliente(
-                            txtNome.Text,
-                            txtCpf.Text,
-                            txtEmail.Text,
-                            Convert.ToDateTime(txtDatacad.Text),
-                            true
-                           );
+                                txtNome.Text,
+                                txtCpf.Text,
+                                txtEmail.Text,
+                                Convert.ToDateTime(txtDatacad.Text),
+                                true
+                              );
             cliente.Inserir();
             txtId.Text = cliente.Id.ToString();
             CarregaGrid();
@@ -111,6 +111,7 @@ namespace TintSysDesk
 
         }
 
+        //Consulta de cliente
         private void button2_Click(object sender, EventArgs e)
         {
             Cliente n = Cliente.ObterPorId(Convert.ToInt32(txtId.Text));
