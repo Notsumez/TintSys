@@ -20,10 +20,7 @@ namespace TintSysDesk
 
         private void FrmCliente_Load(object sender, EventArgs e)
         {
-            if (txtId.Text == "")
-                txtId.Text = "Digite o Id...";
-            else
-                txtId.Text = " ";
+            
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -32,6 +29,11 @@ namespace TintSysDesk
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
 
         }
