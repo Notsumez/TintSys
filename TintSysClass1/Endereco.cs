@@ -70,7 +70,7 @@ namespace TintSysClass1
         public static Endereco ObterPorId(int id)
         {
             var cmd = Banco.Abrir();
-            cmd.CommandText = "select * from endereco where id = " + id;
+            cmd.CommandText = "select * from enderecos where id = " + id;
             cmd.Parameters.AddWithValue("id", id);
             var dr = cmd.ExecuteReader();
             Endereco endereco = null;
@@ -99,7 +99,7 @@ namespace TintSysClass1
         public void Inserir()
         {
             var cmd = Banco.Abrir();
-            cmd.CommandText = "insert into clientes (cep, logradouro, numero, complemento, bairro, cidade, estado, uf, tipo, cliente_id) " +
+            cmd.CommandText = "insert into enderecos (cep, logradouro, numero, complemento, bairro, cidade, estado, uf, tipo, cliente_id) " +
                 "values(@cep, @logradouro, @numero, @complemento, @bairro, @cidade, @estado, @uf, 1, 1";
             cmd.Parameters.Add("@cep", MySqlDbType.String).Value = Cep;
             cmd.Parameters.Add("@logradouro", MySqlDbType.String).Value = Logradouro;
@@ -114,16 +114,11 @@ namespace TintSysClass1
             Id = Convert.ToInt32(cmd.ExecuteScalar());
             Banco.Fechar(cmd);
         }
-        /// <summary>
-        /// Listar o endereço pelo nome
-        /// </summary>
-        /// <param name="_nome"></param>
-        /// <returns>Retorna o endereço de acordo com o nome inserido</returns>
-        public static List<Endereco> Listar(string cliente_id = "")
+        public static List<Endereco> Listar(string endereco_id = "")
         {
             List<Endereco> lista = new List<Endereco>();
             var cmd = Banco.Abrir();
-            cmd.CommandText = "select * from endereco";
+            cmd.CommandText = "select * from enderecos";
             var dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -151,7 +146,7 @@ namespace TintSysClass1
         public void Atualizar()
         {
             var cmd = Banco.Abrir();
-            cmd.CommandText = "update endereco (cep, logradouro, numero, complemento, bairro, cidade, estado, uf) where id = " + Id;
+            cmd.CommandText = "update enderecos (cep, logradouro, numero, complemento, bairro, cidade, estado, uf) where id = " + Id;
             cmd.Parameters.Add("@cep", MySqlDbType.String).Value = Cep;
             cmd.Parameters.Add("@logradouro", MySqlDbType.String).Value = Logradouro;
             cmd.Parameters.Add("@numero", MySqlDbType.String).Value = Numero;
