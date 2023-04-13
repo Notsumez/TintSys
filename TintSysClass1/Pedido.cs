@@ -45,6 +45,7 @@ namespace TintSysClass1
             Usuario = usuario;
             ArquivadoEm = arquivadoEm;
             HashCode = hashCode;
+            Itens = ItemPedido.ListarPorPedido(id);
         }
         public Pedido(DateTime data, string status, double desconto, Cliente cliente, Usuario usuario, DateTime arquivadoEm, string hashCode)
         {
@@ -100,32 +101,81 @@ namespace TintSysClass1
             var dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                pedidos.Add(new Pedido(
-                    dr.GetInt32(0),
-                    dr.GetDateTime(1),
-                    dr.GetString(2),
-                    dr.GetDouble(3),
-                    Cliente.ObterPorId(dr.GetInt32(4)),
-                    Usuario.ObterPorId(dr.GetInt32(5)),
-                    dr.GetDateTime(6),
-                    dr.GetString(7)
-                    )
-                );
+                pedidos.Add(
+                    new Pedido(
+                        dr.GetInt32(0),
+                        dr.GetDateTime(1),
+                        dr.GetString(2),
+                        dr.GetDouble(3),
+                        Cliente.ObterPorId(dr.GetInt32(4)),
+                        Usuario.ObterPorId(dr.GetInt32(5)),
+                        dr.GetDateTime(6),
+                        dr.GetString(7)
+                        )
+                    );
             }
             return pedidos;
         }
 
-        public void Listar()
+        public static List<Pedido> Listar()
         {
+            List<Pedido> pedidos = null;
+            var cmd = Banco.Abrir();
+            cmd.CommandText = "select * from pedidos";
+            var dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                pedidos.Add(
+                    new Pedido(
+                        dr.GetInt32(0),
+                        dr.GetDateTime(1),
+                        dr.GetString(2),
+                        dr.GetDouble(3),
+                        Cliente.ObterPorId(dr.GetInt32(4)),
+                        Usuario.ObterPorId(dr.GetInt32(5)),
+                        dr.GetDateTime(6),
+                        dr.GetString(7)
+                        )
+                    );
+            }
+            return pedidos;
+        }
 
+        public static bool Fechar(int id)
+        {
+            bool teste = false;
+            MySqlCommand cmd = Banco.Abrir();
+            try
+            {
+                cmd.CommandText = "update pedidos set status = 'F' where id = " + id;
+                if (cmd.ExecuteNonQuery() > 0)
+                {
+                    teste = true;
+                }    
+            }
+
+            catch (Exception)
+            {
+
+                // Mostra o erro
+            }
+            finally
+            {
+                Banco.Fechar(cmd);
+            }
+            return teste;
+            
         }
 
         public void Atualizar()
         {
-
+            var cmd = Banco.Abrir();
+            cmd.CommandText = "update pedidos set desconto = @desconto where id = "+Id;
+            cmd.Parameters.Add("@desconto", MySqlDbType.Decimal).Value = Desconto;
+            cmd.ExecuteNonQuery();
         }
 
-        public void Arquicar()
+        public void Arquivar()
         {
 
         }
@@ -134,6 +184,7 @@ namespace TintSysClass1
         {
 
         }
+
         private string ObterHashCode(int cli, int user) 
         { 
             StringBuilder sb = new StringBuilder();

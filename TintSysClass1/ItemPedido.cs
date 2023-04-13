@@ -48,6 +48,7 @@ namespace TintSysClass1
             cmd.Parameters.Add("@quantidade", MySqlDbType.Decimal).Value = Quantidade;
             cmd.Parameters.Add("@desconto", MySqlDbType.Decimal).Value = Desconto;
             cmd.ExecuteNonQuery();
+            Banco.Fechar(cmd);
         }
 
         public static ItemPedido BuscarPorProdutoPedido(int pedido_id, int produto_id)
@@ -78,13 +79,41 @@ namespace TintSysClass1
             var dr = cmd.ExecuteReader();
             while (dr.Read())
             {
+                iten= new ItemPedido(); //Criando o método construtor no próprio método listar
                 iten.Id = dr.GetInt32(0);
                 iten.Produto = Produto.ObtertPorId(dr.GetInt32(2));
                 iten.Preco = dr.GetDouble(3);
                 iten.Quantidade = dr.GetDouble(4);
                 iten.Desconto = dr.GetDouble(5);
+                itens.Add(iten);
             }
+            Banco.Fechar(cmd);
             return itens;
         }
+
+        public void Alterar(int pedido_id)
+        {
+            var cmd = Banco.Abrir();
+            cmd.CommandText = "update itempedido set quantidade = @quantidade, desconto = @desconto" +
+                " where pedido_id = @pedido_id and produto_id = @produto_id";
+            cmd.Parameters.Clear();
+            cmd.Parameters.Add("@pedido_id", MySqlDbType.Int32).Value = pedido_id;
+            cmd.Parameters.Add("@produto_id", MySqlDbType.Int32).Value = Produto.Id;
+            cmd.Parameters.Add("@quantidade", MySqlDbType.Decimal).Value = Quantidade;
+            cmd.Parameters.Add("@desconto", MySqlDbType.Decimal).Value = Desconto;
+            cmd.ExecuteNonQuery();
+            Banco.Fechar(cmd);
+        }
+        public void Excluir(int pedido_id, int produto_id)
+        {
+            var cmd = Banco.Abrir();
+            cmd.CommandText = "delete itempedido where where pedido_id = @pedido_id and produto_id = @produto_id";
+            cmd.Parameters.Clear();
+            cmd.Parameters.Add("@pedido_id", MySqlDbType.Int32).Value = pedido_id;
+            cmd.Parameters.Add("@produto_id", MySqlDbType.Int32).Value = produto_id;
+            cmd.ExecuteNonQuery();
+            Banco.Fechar(cmd);
+        }
+
     }
 }
