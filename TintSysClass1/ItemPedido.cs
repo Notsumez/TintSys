@@ -49,5 +49,42 @@ namespace TintSysClass1
             cmd.Parameters.Add("@desconto", MySqlDbType.Decimal).Value = Desconto;
             cmd.ExecuteNonQuery();
         }
+
+        public static ItemPedido BuscarPorProdutoPedido(int pedido_id, int produto_id)
+        {
+            ItemPedido iten = new ItemPedido();
+            var cmd = Banco.Abrir();
+            cmd.CommandText = "select * from itempedido where pedido_id = @pedido and produto_id = @produto";
+            cmd.Parameters.Add("@pedido", MySqlDbType.Int32).Value = pedido_id;
+            cmd.Parameters.Add("@produto", MySqlDbType.Int32).Value = produto_id;
+            var dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                iten.Id = dr.GetInt32(0);
+                iten.Produto = Produto.ObtertPorId(dr.GetInt32(2));
+                iten.Preco = dr.GetDouble(3);
+                iten.Quantidade = dr.GetDouble(4);
+                iten.Desconto = dr.GetDouble(5);
+            }
+            return iten;
+        }
+        public static List<ItemPedido> ListarPorPedido(int pedido_id)
+        {
+            ItemPedido iten = null;
+            List<ItemPedido> itens = new List<ItemPedido>();
+            var cmd = Banco.Abrir();
+            cmd.CommandText = "select * from itempedido where pedido_id = @pedido";
+            cmd.Parameters.Add("@pedido", MySqlDbType.Int32).Value = pedido_id;
+            var dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                iten.Id = dr.GetInt32(0);
+                iten.Produto = Produto.ObtertPorId(dr.GetInt32(2));
+                iten.Preco = dr.GetDouble(3);
+                iten.Quantidade = dr.GetDouble(4);
+                iten.Desconto = dr.GetDouble(5);
+            }
+            return itens;
+        }
     }
 }

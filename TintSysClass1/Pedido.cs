@@ -17,6 +17,7 @@ namespace TintSysClass1
         private Usuario usuario;
         private DateTime arquivadoem;
         private string hashcode;
+        private List<ItemPedido> itens;
 
         //propriedades
         public int Id { get; set; }
@@ -27,6 +28,7 @@ namespace TintSysClass1
         public Usuario Usuario { get; set; }
         public DateTime ArquivadoEm { get; set; }
         public string HashCode { get; set; }
+        public List<ItemPedido> Itens { get; set; }
         
         public Pedido(Cliente cliente, Usuario usuario) 
         { 
@@ -64,16 +66,53 @@ namespace TintSysClass1
             cmd.Parameters.Add("@usuario", MySqlDbType.Int32).Value = Usuario.Id;
             cmd.Parameters.Add("@hash", MySqlDbType.VarChar).Value = ObterHashCode(Cliente.Id, Usuario.Id);
             cmd.ExecuteNonQuery();
+            cmd.CommandText = "select @@identity";
+            Id = Convert.ToInt32(cmd.ExecuteScalar());
             Banco.Fechar(cmd);
         }
 
-        public void ObterPorId(int id)
+        public static Pedido ObterPorId(int id)
         {
-
+            Pedido pedido = null;
+            var cmd = Banco.Abrir();
+            cmd.CommandText = "select * from pedidos where id = " + id;
+            var dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {   
+                pedido = new Pedido(
+                    dr.GetInt32(0),
+                    dr.GetDateTime(1),
+                    dr.GetString(2),
+                    dr.GetDouble(3),
+                    Cliente.ObterPorId(dr.GetInt32(4)),
+                    Usuario.ObterPorId(dr.GetInt32(5)),
+                    dr.GetDateTime(6),
+                    dr.GetString(7)
+                    );
+            }
+            return pedido;
         }
-        public void ObterPorCliente(int id)
+        public static List<Pedido> ObterPorCliente(int id)
         {
-
+            List<Pedido> pedidos = null;
+            var cmd = Banco.Abrir();
+            cmd.CommandText = "select * from pedidos where cliente_id = " + id;
+            var dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                pedidos.Add(new Pedido(
+                    dr.GetInt32(0),
+                    dr.GetDateTime(1),
+                    dr.GetString(2),
+                    dr.GetDouble(3),
+                    Cliente.ObterPorId(dr.GetInt32(4)),
+                    Usuario.ObterPorId(dr.GetInt32(5)),
+                    dr.GetDateTime(6),
+                    dr.GetString(7)
+                    )
+                );
+            }
+            return pedidos;
         }
 
         public void Listar()
@@ -101,7 +140,8 @@ namespace TintSysClass1
             sb.Append("PD-");
             sb.Append(cli);
             sb.Append(user);
-            sb.Append(GetHashCode());
+            Random rd = new Random();
+            sb.Append(rd.Next(12345, 54321));
             return sb.ToString(); 
         }
 
