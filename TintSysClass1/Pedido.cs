@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
@@ -173,11 +174,15 @@ namespace TintSysClass1
             cmd.CommandText = "update pedidos set desconto = @desconto where id = "+Id;
             cmd.Parameters.Add("@desconto", MySqlDbType.Decimal).Value = Desconto;
             cmd.ExecuteNonQuery();
+            Banco.Fechar(cmd);
         }
 
         public void Arquivar()
         {
-
+            var cmd = Banco.Abrir();
+            cmd.CommandText = "update pedidos set ativo = 0 where id = " + Id;
+            cmd.ExecuteNonQuery();
+            Banco.Fechar(cmd);
         }
 
         public void Restaurar()

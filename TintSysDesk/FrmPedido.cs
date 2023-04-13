@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TintSysClass1;
 
 namespace TintSysDesk
 {
@@ -19,7 +20,18 @@ namespace TintSysDesk
 
         private void FrmPedido_Load(object sender, EventArgs e)
         {
+            cmbCliente.DataSource = Cliente.Listar();
+            cmbCliente.DisplayMember = "Nome";
+            cmbCliente.ValueMember= "Id";
 
+            cmbUsuario.DataSource= Usuario.Listar();
+            cmbUsuario.DisplayMember = "Nome";
+            cmbUsuario.ValueMember= "Id";
+        }
+
+        private void btnNovo_Click(object sender, EventArgs e)
+        {
+            grbDados.Enabled = true;
         }
     }
 }

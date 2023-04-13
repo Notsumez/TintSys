@@ -26,7 +26,7 @@ namespace TintSysDesk
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
-            MessageBox.Show(GetHashCode().ToString());
+            //MessageBox.Show(GetHashCode().ToString());
         }
 
         private void gerenciarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -41,6 +41,13 @@ namespace TintSysDesk
             FrmProduto frmProduto = new FrmProduto();
             frmProduto.MdiParent = this;
             frmProduto.Show();
+        }
+
+        private void novoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmPedido frmPedido= new FrmPedido();
+            frmPedido.MdiParent = this;
+            frmPedido.Show();
         }
     }
 }
