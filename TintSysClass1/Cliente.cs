@@ -27,7 +27,13 @@ namespace TintSysClass1
         public bool Ativo { get => ativo; set => ativo = value; }
 
         // criando os métodos construtores
-        public Cliente() { }
+        public Cliente(string nome, string cpf, string email)
+        {
+
+            Nome = nome;
+            Cpf = cpf;
+            Email = email;
+        }
         public Cliente(int id, string nome, string cpf, string email, DateTime datacad, bool ativo)
         {
             Id = id;
@@ -54,7 +60,6 @@ namespace TintSysClass1
             Datacad = datacad;
             Ativo = ativo;
         }
-
 
         // Criando os Métodos da Classe
 
@@ -92,12 +97,10 @@ namespace TintSysClass1
         {
             var cmd = Banco.Abrir();
             cmd.CommandText = "insert into clientes (nome, cpf, email, datacad, ativo) " +
-                "values(@nome, @cpf, @email, @datacad, 1";
+                "values(@nome, @cpf, @email, default, 1";
             cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = Nome;
             cmd.Parameters.Add("@cpf", MySqlDbType.VarChar).Value = Cpf;
             cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = Email;
-            cmd.Parameters.Add("@senha", MySqlDbType.DateTime).Value = Datacad;
-            cmd.Parameters.Add("@nivel", MySqlDbType.Int32).Value = Ativo;
             cmd.ExecuteNonQuery();
             cmd.CommandText = "select @@identity";
             Id = Convert.ToInt32(cmd.ExecuteScalar());

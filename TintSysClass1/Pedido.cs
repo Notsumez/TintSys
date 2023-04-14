@@ -180,7 +180,8 @@ namespace TintSysClass1
         public void Arquivar()
         {
             var cmd = Banco.Abrir();
-            cmd.CommandText = "update pedidos set ativo = 0 where id = " + Id;
+            cmd.CommandText = "update pedidos set arquivadoem = @arquivadoem where id ="+Id;
+            cmd.Parameters.Add("@arquivadoem", MySqlDbType.DateTime).Value = ArquivadoEm;
             cmd.ExecuteNonQuery();
             Banco.Fechar(cmd);
         }
