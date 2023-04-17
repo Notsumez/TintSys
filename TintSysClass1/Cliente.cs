@@ -27,12 +27,13 @@ namespace TintSysClass1
         public bool Ativo { get => ativo; set => ativo = value; }
 
         // criando os métodos construtores
-        public Cliente(string nome, string cpf, string email)
+        public Cliente(string nome, string cpf, string email, bool ativo)
         {
 
             Nome = nome;
             Cpf = cpf;
             Email = email;
+            Ativo = ativo;
         }
         public Cliente(int id, string nome, string cpf, string email, DateTime datacad, bool ativo)
         {
@@ -59,6 +60,13 @@ namespace TintSysClass1
             Email = email;
             Datacad = datacad;
             Ativo = ativo;
+        }
+        public Cliente(int id, string nome, string cpf, string email)
+        {
+            Id = id;
+            Nome = nome;
+            Cpf = cpf;
+            Email = email;
         }
 
         // Criando os Métodos da Classe
@@ -145,9 +153,11 @@ namespace TintSysClass1
         public void Atualizar()
         {
             var cmd = Banco.Abrir();
-            cmd.CommandText = "update clientes set nome = @nome" +
+            cmd.CommandText = "update clientes set nome = @nome, cpf = @cpf, email = @email" +
                 "where id = " + Id;
             cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = Nome;
+            cmd.Parameters.Add("@cpf", MySqlDbType.VarChar).Value = Cpf;
+            cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = Email;
             cmd.ExecuteNonQuery();
             Banco.Fechar(cmd);
         }

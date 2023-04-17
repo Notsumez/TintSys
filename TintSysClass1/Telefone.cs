@@ -66,9 +66,11 @@ namespace TintSysClass1
         {
             var cmd = Banco.Abrir();
             cmd.CommandText = "insert into telefones (numero, tipo, cliente_id) " +
-                "values(@numero, @tipo, 1";
+                "values(@numero, @tipo, @cliente_id)";
             cmd.Parameters.Add("@numero", MySqlDbType.String).Value = Numero;
             cmd.Parameters.Add("@tipo", MySqlDbType.String).Value = Tipo;
+            cmd.Parameters.Add("@cliente_id", MySqlDbType.Int32).Value = Cliente.Id;
+            cmd.ExecuteNonQuery();
             cmd.CommandText = "select @@identity";
             Id = Convert.ToInt32(cmd.ExecuteScalar());
             Banco.Fechar(cmd);
@@ -95,7 +97,7 @@ namespace TintSysClass1
         public void Atualizar()
         {
             var cmd = Banco.Abrir();
-            cmd.CommandText = "update telefones (numero, tipo) where id ="+Id;
+            cmd.CommandText = "update telefones (numero, tipo) where id = "+Id;
             cmd.Parameters.Add("@numero", MySqlDbType.String).Value = Numero;
             cmd.Parameters.Add("@tipo", MySqlDbType.String).Value = Tipo;
             cmd.ExecuteNonQuery();

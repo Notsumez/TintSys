@@ -112,5 +112,11 @@ namespace TintSysDesk
             }
             txtTotal.Text = SubTotal.ToString();
         }
+
+        private void cmbCliente_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

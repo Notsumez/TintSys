@@ -22,6 +22,8 @@ namespace TintSysDesk
         private void FrmCliente_Load(object sender, EventArgs e)
         {
             CarregaGrid();
+            CarregaComboTelefone();
+            CarregaGridTel();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -107,10 +109,26 @@ namespace TintSysDesk
             }
         }
 
+        private void CarregaGridTel()
+        {
+            List<Telefone> lista = Telefone.Listar();
+            int linha = 0;
+            dgvTelefone.Rows.Clear();
+            foreach (Telefone iten in lista)
+            {
+                dgvTelefone.Rows.Add();
+                dgvTelefone.Rows[linha].Cells[0].Value = iten.Id.ToString();
+                dgvTelefone.Rows[linha].Cells[1].Value = iten.Numero;
+                dgvTelefone.Rows[linha].Cells[2].Value = iten.Tipo;
+                dgvTelefone.Rows[linha].Cells[3].Value = iten.Cliente.Id;
+                linha++;
+            }
+        }
+
         private void btnInserir_Click(object sender, EventArgs e)
         {
             Cliente cliente = new Cliente(
-                txtNome.Text, txtCpf.Text, txtEmail.Text);
+                txtNome.Text, txtCpf.Text, txtEmail.Text, true);
             cliente.Inserir();
             txtId.Text = cliente.Id.ToString();
 
@@ -137,6 +155,69 @@ namespace TintSysDesk
                 txtId.Focus();
                 txtId.Clear();
             }
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            Cliente n = new Cliente(
+                Convert.ToInt32(txtId.Text),
+                txtNome.Text,
+                txtCpf.Text,
+                txtEmail.Text);
+            n.Atualizar();
+            CarregaGrid();
+        }
+
+        private void btnInserirTel_Click(object sender, EventArgs e)
+        {
+            Telefone telefone = new Telefone(
+                txtNumTel.Text, txtTipoTel.Text, 
+                Cliente.ObterPorId(Convert.ToInt32(cmbClienteTel.SelectedValue)));
+            telefone.Inserir();
+            txtId.Text = telefone.Id.ToString();
+            CarregaGridTel();
+        }
+
+        private void CarregaComboTelefone()
+        {
+            cmbClienteTel.DataSource = Cliente.Listar();
+            cmbClienteTel.ValueMember = "Id";
+            cmbClienteTel.DisplayMember = "Nome";
+        }
+
+        private void btnConsultarTel_Click(object sender, EventArgs e)
+        {
+            Telefone u = Telefone.ObterPorId(Convert.ToInt32(txtIdTel.Text));
+            if (u != null)
+            {
+                txtNumTel.Text = u.Numero;
+                txtTipoTel.Text = u.Tipo;
+            }
+            else
+            {
+                MessageBox.Show("Cliente não cadastrado!");
+                txtNumTel.Clear();
+                txtTipoTel.Clear();
+                txtId.Focus();
+                txtId.Clear();
+            }
+        }
+
+        private void btnEditarTel_Click(object sender, EventArgs e)
+        {
+            Telefone n = new Telefone(
+                Convert.ToInt32(txtIdTel.Text),
+                txtNumTel.Text,
+                txtTipoTel.Text,
+                Cliente.ObterPorId(Convert.ToInt32(cmbClienteTel.SelectedValue)));
+            n.Atualizar();
+            CarregaGrid();
+        }
+
+        private void tabTelefone_Click(object sender, EventArgs e)
+        {
+            CarregaGridTel();
+            CarregaComboTelefone();
         }
     }
 }

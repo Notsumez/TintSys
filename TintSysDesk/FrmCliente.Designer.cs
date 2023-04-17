@@ -54,9 +54,28 @@
             this.txtId = new System.Windows.Forms.TextBox();
             this.tabTelefone = new System.Windows.Forms.TabPage();
             this.tabEndereco = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.cmbClienteTel = new System.Windows.Forms.ComboBox();
+            this.txtIdTel = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtNumTel = new System.Windows.Forms.TextBox();
+            this.txtTipoTel = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.btnEditarTel = new System.Windows.Forms.Button();
+            this.btnConsultarTel = new System.Windows.Forms.Button();
+            this.btnInserirTel = new System.Windows.Forms.Button();
+            this.dgvTelefone = new System.Windows.Forms.DataGridView();
+            this.clnIdTel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clnNumTel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clnTipoTel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clnClienteTel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabCliente.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCliente)).BeginInit();
+            this.tabTelefone.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTelefone)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -105,6 +124,7 @@
             this.btnEditar.TabIndex = 16;
             this.btnEditar.Text = "Editar";
             this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnConsultar
             // 
@@ -306,6 +326,19 @@
             // 
             // tabTelefone
             // 
+            this.tabTelefone.Controls.Add(this.dgvTelefone);
+            this.tabTelefone.Controls.Add(this.btnEditarTel);
+            this.tabTelefone.Controls.Add(this.btnConsultarTel);
+            this.tabTelefone.Controls.Add(this.btnInserirTel);
+            this.tabTelefone.Controls.Add(this.label11);
+            this.tabTelefone.Controls.Add(this.txtTipoTel);
+            this.tabTelefone.Controls.Add(this.txtNumTel);
+            this.tabTelefone.Controls.Add(this.label9);
+            this.tabTelefone.Controls.Add(this.txtIdTel);
+            this.tabTelefone.Controls.Add(this.cmbClienteTel);
+            this.tabTelefone.Controls.Add(this.label10);
+            this.tabTelefone.Controls.Add(this.label8);
+            this.tabTelefone.Controls.Add(this.label7);
             this.tabTelefone.Location = new System.Drawing.Point(4, 22);
             this.tabTelefone.Name = "tabTelefone";
             this.tabTelefone.Padding = new System.Windows.Forms.Padding(3);
@@ -313,6 +346,7 @@
             this.tabTelefone.TabIndex = 1;
             this.tabTelefone.Text = "Telefone";
             this.tabTelefone.UseVisualStyleBackColor = true;
+            this.tabTelefone.Click += new System.EventHandler(this.tabTelefone_Click);
             // 
             // tabEndereco
             // 
@@ -322,6 +356,159 @@
             this.tabEndereco.TabIndex = 2;
             this.tabEndereco.Text = "Endereço";
             this.tabEndereco.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(392, 70);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(76, 13);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Id do Telefone";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(388, 114);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(104, 13);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Numero do Telefone";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(388, 158);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(88, 13);
+            this.label10.TabIndex = 3;
+            this.label10.Text = "Tipo de Telefone";
+            // 
+            // cmbClienteTel
+            // 
+            this.cmbClienteTel.FormattingEnabled = true;
+            this.cmbClienteTel.Location = new System.Drawing.Point(355, 227);
+            this.cmbClienteTel.Name = "cmbClienteTel";
+            this.cmbClienteTel.Size = new System.Drawing.Size(147, 21);
+            this.cmbClienteTel.TabIndex = 4;
+            // 
+            // txtIdTel
+            // 
+            this.txtIdTel.Location = new System.Drawing.Point(355, 86);
+            this.txtIdTel.Name = "txtIdTel";
+            this.txtIdTel.Size = new System.Drawing.Size(147, 20);
+            this.txtIdTel.TabIndex = 5;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(330, 37);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(213, 20);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "CADASTRO DE TELEFONE";
+            // 
+            // txtNumTel
+            // 
+            this.txtNumTel.Location = new System.Drawing.Point(355, 130);
+            this.txtNumTel.Name = "txtNumTel";
+            this.txtNumTel.Size = new System.Drawing.Size(147, 20);
+            this.txtNumTel.TabIndex = 7;
+            // 
+            // txtTipoTel
+            // 
+            this.txtTipoTel.Location = new System.Drawing.Point(355, 183);
+            this.txtTipoTel.Name = "txtTipoTel";
+            this.txtTipoTel.Size = new System.Drawing.Size(147, 20);
+            this.txtTipoTel.TabIndex = 8;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(401, 211);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(39, 13);
+            this.label11.TabIndex = 9;
+            this.label11.Text = "Cliente";
+            // 
+            // btnEditarTel
+            // 
+            this.btnEditarTel.Location = new System.Drawing.Point(596, 275);
+            this.btnEditarTel.Name = "btnEditarTel";
+            this.btnEditarTel.Size = new System.Drawing.Size(75, 23);
+            this.btnEditarTel.TabIndex = 19;
+            this.btnEditarTel.Text = "Editar";
+            this.btnEditarTel.UseVisualStyleBackColor = true;
+            this.btnEditarTel.Click += new System.EventHandler(this.btnEditarTel_Click);
+            // 
+            // btnConsultarTel
+            // 
+            this.btnConsultarTel.Location = new System.Drawing.Point(401, 275);
+            this.btnConsultarTel.Name = "btnConsultarTel";
+            this.btnConsultarTel.Size = new System.Drawing.Size(75, 23);
+            this.btnConsultarTel.TabIndex = 18;
+            this.btnConsultarTel.Text = "Consultar";
+            this.btnConsultarTel.UseVisualStyleBackColor = true;
+            this.btnConsultarTel.Click += new System.EventHandler(this.btnConsultarTel_Click);
+            // 
+            // btnInserirTel
+            // 
+            this.btnInserirTel.Location = new System.Drawing.Point(214, 275);
+            this.btnInserirTel.Name = "btnInserirTel";
+            this.btnInserirTel.Size = new System.Drawing.Size(75, 23);
+            this.btnInserirTel.TabIndex = 17;
+            this.btnInserirTel.Text = "Inserir";
+            this.btnInserirTel.UseVisualStyleBackColor = true;
+            this.btnInserirTel.Click += new System.EventHandler(this.btnInserirTel_Click);
+            // 
+            // dgvTelefone
+            // 
+            this.dgvTelefone.AllowUserToAddRows = false;
+            this.dgvTelefone.AllowUserToDeleteRows = false;
+            this.dgvTelefone.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTelefone.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clnIdTel,
+            this.clnNumTel,
+            this.clnTipoTel,
+            this.clnClienteTel});
+            this.dgvTelefone.Location = new System.Drawing.Point(251, 325);
+            this.dgvTelefone.Name = "dgvTelefone";
+            this.dgvTelefone.ReadOnly = true;
+            this.dgvTelefone.RowHeadersVisible = false;
+            this.dgvTelefone.Size = new System.Drawing.Size(403, 211);
+            this.dgvTelefone.TabIndex = 20;
+            // 
+            // clnIdTel
+            // 
+            this.clnIdTel.Frozen = true;
+            this.clnIdTel.HeaderText = "ID";
+            this.clnIdTel.Name = "clnIdTel";
+            this.clnIdTel.ReadOnly = true;
+            this.clnIdTel.Width = 40;
+            // 
+            // clnNumTel
+            // 
+            this.clnNumTel.Frozen = true;
+            this.clnNumTel.HeaderText = "Numero";
+            this.clnNumTel.Name = "clnNumTel";
+            this.clnNumTel.ReadOnly = true;
+            this.clnNumTel.Width = 130;
+            // 
+            // clnTipoTel
+            // 
+            this.clnTipoTel.Frozen = true;
+            this.clnTipoTel.HeaderText = "Tipo";
+            this.clnTipoTel.Name = "clnTipoTel";
+            this.clnTipoTel.ReadOnly = true;
+            // 
+            // clnClienteTel
+            // 
+            this.clnClienteTel.Frozen = true;
+            this.clnClienteTel.HeaderText = "Cliente";
+            this.clnClienteTel.Name = "clnClienteTel";
+            this.clnClienteTel.ReadOnly = true;
+            this.clnClienteTel.Width = 130;
             // 
             // FrmCliente
             // 
@@ -336,6 +523,9 @@
             this.tabCliente.ResumeLayout(false);
             this.tabCliente.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCliente)).EndInit();
+            this.tabTelefone.ResumeLayout(false);
+            this.tabTelefone.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTelefone)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -368,5 +558,22 @@
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnConsultar;
         private System.Windows.Forms.Button btnInserir;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtIdTel;
+        private System.Windows.Forms.ComboBox cmbClienteTel;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtTipoTel;
+        private System.Windows.Forms.TextBox txtNumTel;
+        private System.Windows.Forms.Button btnEditarTel;
+        private System.Windows.Forms.Button btnConsultarTel;
+        private System.Windows.Forms.Button btnInserirTel;
+        private System.Windows.Forms.DataGridView dgvTelefone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clnIdTel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clnNumTel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clnTipoTel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clnClienteTel;
     }
 }

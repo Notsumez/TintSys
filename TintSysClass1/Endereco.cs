@@ -100,7 +100,7 @@ namespace TintSysClass1
         {
             var cmd = Banco.Abrir();
             cmd.CommandText = "insert into enderecos (cep, logradouro, numero, complemento, bairro, cidade, estado, uf, tipo, cliente_id) " +
-                "values(@cep, @logradouro, @numero, @complemento, @bairro, @cidade, @estado, @uf, 1, 1";
+                "values(@cep, @logradouro, @numero, @complemento, @bairro, @cidade, @estado, @uf, 1, 1)";
             cmd.Parameters.Add("@cep", MySqlDbType.String).Value = Cep;
             cmd.Parameters.Add("@logradouro", MySqlDbType.String).Value = Logradouro;
             cmd.Parameters.Add("@numero", MySqlDbType.String).Value = Numero;

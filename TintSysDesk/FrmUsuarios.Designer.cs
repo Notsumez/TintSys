@@ -50,11 +50,14 @@
             this.txtNomeNivel = new System.Windows.Forms.TextBox();
             this.txtSiglaNivel = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnEditarNivel = new System.Windows.Forms.Button();
             this.dgvNiveis = new System.Windows.Forms.DataGridView();
             this.clnIdNivel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clnNomeNivel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clnSiglaNivel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clnDeleteNivel = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btnConsultarNivel = new System.Windows.Forms.Button();
+            this.btnInserirNivel = new System.Windows.Forms.Button();
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
             this.clnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clnNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,9 +65,6 @@
             this.clnSenha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clnNivel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clnAtivo = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.btnEditarNivel = new System.Windows.Forms.Button();
-            this.btnConsultarNivel = new System.Windows.Forms.Button();
-            this.btnInserirNivel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNiveis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
@@ -265,6 +265,23 @@
             this.groupBox1.TabIndex = 24;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Niveis";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // btnEditarNivel
+            // 
+            this.btnEditarNivel.FlatAppearance.BorderSize = 0;
+            this.btnEditarNivel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.btnEditarNivel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditarNivel.ForeColor = System.Drawing.Color.Black;
+            this.btnEditarNivel.Image = global::TintSysDesk.Properties.Resources.Edit;
+            this.btnEditarNivel.Location = new System.Drawing.Point(209, 132);
+            this.btnEditarNivel.Name = "btnEditarNivel";
+            this.btnEditarNivel.Size = new System.Drawing.Size(66, 54);
+            this.btnEditarNivel.TabIndex = 23;
+            this.btnEditarNivel.Text = "Editar";
+            this.btnEditarNivel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnEditarNivel.UseVisualStyleBackColor = true;
+            this.btnEditarNivel.Click += new System.EventHandler(this.btnEditarNivel_Click);
             // 
             // dgvNiveis
             // 
@@ -315,6 +332,38 @@
             this.clnDeleteNivel.ReadOnly = true;
             this.clnDeleteNivel.Text = "Excluir";
             this.clnDeleteNivel.Width = 79;
+            // 
+            // btnConsultarNivel
+            // 
+            this.btnConsultarNivel.FlatAppearance.BorderSize = 0;
+            this.btnConsultarNivel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.btnConsultarNivel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConsultarNivel.ForeColor = System.Drawing.Color.Black;
+            this.btnConsultarNivel.Image = global::TintSysDesk.Properties.Resources.Search;
+            this.btnConsultarNivel.Location = new System.Drawing.Point(128, 132);
+            this.btnConsultarNivel.Name = "btnConsultarNivel";
+            this.btnConsultarNivel.Size = new System.Drawing.Size(66, 54);
+            this.btnConsultarNivel.TabIndex = 22;
+            this.btnConsultarNivel.Text = "Consultar";
+            this.btnConsultarNivel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnConsultarNivel.UseVisualStyleBackColor = true;
+            this.btnConsultarNivel.Click += new System.EventHandler(this.btnConsultarNivel_Click);
+            // 
+            // btnInserirNivel
+            // 
+            this.btnInserirNivel.FlatAppearance.BorderSize = 0;
+            this.btnInserirNivel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.btnInserirNivel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnInserirNivel.ForeColor = System.Drawing.Color.Black;
+            this.btnInserirNivel.Image = global::TintSysDesk.Properties.Resources.Add;
+            this.btnInserirNivel.Location = new System.Drawing.Point(47, 132);
+            this.btnInserirNivel.Name = "btnInserirNivel";
+            this.btnInserirNivel.Size = new System.Drawing.Size(66, 54);
+            this.btnInserirNivel.TabIndex = 21;
+            this.btnInserirNivel.Text = "Inserir";
+            this.btnInserirNivel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnInserirNivel.UseVisualStyleBackColor = true;
+            this.btnInserirNivel.Click += new System.EventHandler(this.btnInserirNivel_Click);
             // 
             // dgvUsuarios
             // 
@@ -379,54 +428,6 @@
             this.clnAtivo.ReadOnly = true;
             this.clnAtivo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.clnAtivo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // btnEditarNivel
-            // 
-            this.btnEditarNivel.FlatAppearance.BorderSize = 0;
-            this.btnEditarNivel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.btnEditarNivel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEditarNivel.ForeColor = System.Drawing.Color.Black;
-            this.btnEditarNivel.Image = global::TintSysDesk.Properties.Resources.Edit;
-            this.btnEditarNivel.Location = new System.Drawing.Point(209, 132);
-            this.btnEditarNivel.Name = "btnEditarNivel";
-            this.btnEditarNivel.Size = new System.Drawing.Size(66, 54);
-            this.btnEditarNivel.TabIndex = 23;
-            this.btnEditarNivel.Text = "Editar";
-            this.btnEditarNivel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnEditarNivel.UseVisualStyleBackColor = true;
-            this.btnEditarNivel.Click += new System.EventHandler(this.btnEditarNivel_Click);
-            // 
-            // btnConsultarNivel
-            // 
-            this.btnConsultarNivel.FlatAppearance.BorderSize = 0;
-            this.btnConsultarNivel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.btnConsultarNivel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConsultarNivel.ForeColor = System.Drawing.Color.Black;
-            this.btnConsultarNivel.Image = global::TintSysDesk.Properties.Resources.Search;
-            this.btnConsultarNivel.Location = new System.Drawing.Point(128, 132);
-            this.btnConsultarNivel.Name = "btnConsultarNivel";
-            this.btnConsultarNivel.Size = new System.Drawing.Size(66, 54);
-            this.btnConsultarNivel.TabIndex = 22;
-            this.btnConsultarNivel.Text = "Consultar";
-            this.btnConsultarNivel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnConsultarNivel.UseVisualStyleBackColor = true;
-            this.btnConsultarNivel.Click += new System.EventHandler(this.btnConsultarNivel_Click);
-            // 
-            // btnInserirNivel
-            // 
-            this.btnInserirNivel.FlatAppearance.BorderSize = 0;
-            this.btnInserirNivel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.btnInserirNivel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnInserirNivel.ForeColor = System.Drawing.Color.Black;
-            this.btnInserirNivel.Image = global::TintSysDesk.Properties.Resources.Add;
-            this.btnInserirNivel.Location = new System.Drawing.Point(47, 132);
-            this.btnInserirNivel.Name = "btnInserirNivel";
-            this.btnInserirNivel.Size = new System.Drawing.Size(66, 54);
-            this.btnInserirNivel.TabIndex = 21;
-            this.btnInserirNivel.Text = "Inserir";
-            this.btnInserirNivel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnInserirNivel.UseVisualStyleBackColor = true;
-            this.btnInserirNivel.Click += new System.EventHandler(this.btnInserirNivel_Click);
             // 
             // FrmUsuarios
             // 
