@@ -69,7 +69,8 @@ namespace TintSysDesk
 
         private void btnInserirNivel_Click(object sender, EventArgs e)
         {
-            Nivel n = new Nivel(txtNomeNivel.Text, txtSiglaNivel.Text);
+            Nivel n = new Nivel(
+                txtNomeNivel.Text, txtSiglaNivel.Text);
             n.Inserir();
             CarregaComboNivel();
         }
